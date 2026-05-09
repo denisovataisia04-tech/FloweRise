@@ -2,71 +2,384 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FloweRise — Авторские букеты</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', sans-serif; background: #fffaf5; color: #2d241f; }
-        header { background: #fff5ed; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: bold; color: #b1624b; }
-        nav a { margin-left: 30px; text-decoration: none; color: #4a3b32; }
-        .cart-icon { background: #f0e0d0; padding: 8px 16px; border-radius: 40px; cursor: pointer; }
-        .hero { text-align: center; padding: 60px 20px; background: #fceae8; }
-        .hero h1 { font-size: 48px; color: #9b4b36; }
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-        .section-title { font-size: 32px; text-align: center; color: #8b4a32; }
-        .flowers-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; margin-top: 30px; }
-        .card { background: white; border-radius: 28px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 250px; background-size: cover; background-position: center; background-color: #edd9cb; }
-        .card-content { padding: 20px; }
-        .card h3 { font-size: 22px; color: #4e3224; }
-        .price { font-size: 26px; font-weight: bold; color: #bc6f51; margin: 10px 0; }
-        .desc { color: #6a5a4f; margin-bottom: 15px; }
-        button { background: #bc6f51; border: none; width: 100%; padding: 12px; color: white; border-radius: 40px; cursor: pointer; font-weight: bold; }
-        .about { background: #faf0e8; border-radius: 40px; padding: 40px; text-align: center; margin-top: 40px; }
-        .contacts { text-align: center; background: #fff; border-radius: 40px; padding: 40px; margin-top: 30px; }
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
-        .modal-content { background: white; max-width: 500px; width: 90%; border-radius: 32px; padding: 30px; position: relative; }
-        .close-modal { position: absolute; right: 20px; top: 15px; font-size: 28px; cursor: pointer; }
-        .order-btn { background: #9b4e36; width: 100%; padding: 12px; border-radius: 40px; color: white; font-weight: bold; border: none; }
-        footer { text-align: center; padding: 30px; background: #e4d4c8; margin-top: 50px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Georgia', Roboto, sans-serif;
+            background: #fffaf5;
+            color: #2d241f;
+        }
+
+        header {
+            background: #ffffffdd;
+            backdrop-filter: blur(10px);
+            padding: 18px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #f3e3d8;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .logo span:first-child {
+            color: #b45a3b;
+        }
+        .logo span:last-child {
+            color: #d48e6b;
+            font-weight: 400;
+        }
+
+        nav a {
+            margin-left: 35px;
+            text-decoration: none;
+            color: #4a3528;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        nav a:hover {
+            color: #bc6f51;
+        }
+
+        .cart-icon {
+            background: #f0e0d4;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .cart-icon:hover {
+            background: #e2cdbc;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 90px 20px;
+            background: linear-gradient(135deg, #fceae2, #fff3ea);
+        }
+        .hero h1 {
+            font-size: 54px;
+            color: #9b452c;
+            margin-bottom: 16px;
+        }
+        .hero p {
+            font-size: 22px;
+            color: #6a4a38;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 70px auto;
+            padding: 0 30px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            text-align: center;
+            color: #8b4a32;
+            border-bottom: 3px solid #f0ddd0;
+            display: inline-block;
+            width: auto;
+            padding-bottom: 10px;
+            margin-bottom: 45px;
+        }
+
+        .flowers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            transition: 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px rgba(0,0,0,0.12);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-content {
+            padding: 22px;
+        }
+        .card h3 {
+            font-size: 24px;
+            color: #563729;
+            margin-bottom: 8px;
+        }
+        .price {
+            font-size: 28px;
+            font-weight: 800;
+            color: #c2704e;
+            margin: 12px 0;
+        }
+        .desc {
+            color: #7a6253;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        button.add-to-cart {
+            background: #c2704e;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button.add-to-cart:hover {
+            background: #a15437;
+        }
+
+        .about {
+            background: #fef4ec;
+            border-radius: 48px;
+            padding: 55px 40px;
+            text-align: center;
+        }
+
+        .contacts {
+            text-align: center;
+            background: #fff;
+            border-radius: 48px;
+            padding: 45px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        }
+
+        .contacts p {
+            margin: 12px 0;
+            font-size: 18px;
+        }
+
+        .contacts a {
+            color: #bc6f51;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .contacts a:hover {
+            text-decoration: underline;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 300;
+        }
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 40px;
+            padding: 30px;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            right: 22px;
+            top: 15px;
+            font-size: 32px;
+            cursor: pointer;
+        }
+        .cart-items {
+            list-style: none;
+            margin: 20px 0;
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .cart-items li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0ddd0;
+        }
+        .order-btn {
+            background: #9b4e36;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #ebdbcf;
+            text-align: center;
+            padding: 35px;
+            color: #5c4133;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 750px) {
+            header { padding: 15px 20px; }
+            nav a { margin-left: 18px; }
+            .hero h1 { font-size: 38px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">FloweRise</div>
-    <nav><a href="#">Главная</a><a href="#catalog">Букеты</a><a href="#about">О нас</a><a href="#contacts">Контакты</a></nav>
+    <div class="logo">
+        <span>Flowe</span><span>Rise</span>
+    </div>
+    <nav>
+        <a href="#">Главная</a>
+        <a href="#catalog">Букеты</a>
+        <a href="#about">О нас</a>
+        <a href="#contacts">Контакты</a>
+    </nav>
     <div class="cart-icon" id="cartButton">🛒 Корзина (<span id="cartCount">0</span>)</div>
 </header>
 
-<section class="hero"><h1>FloweRise</h1><p>Авторские букеты, которые говорят больше слов</p></section>
+<section class="hero">
+    <h1>FloweRise</h1>
+    <p>Авторские букеты, которые говорят больше слов</p>
+    <p style="font-size: 18px; margin-top: 20px;">✨ Каждая композиция — ручная работа ✨</p>
+</section>
 
 <div class="container" id="catalog">
     <h2 class="section-title">🌿 Наши авторские букеты</h2>
     <div class="flowers-grid" id="flowersGrid"></div>
 </div>
 
-<div class="container" id="about"><div class="about"><h2>🌸 О FloweRise</h2><p>Мы создаём букеты как искусство. Никаких шаблонов — только уникальные сочетания цветов.</p></div></div>
+<div class="container" id="about">
+    <div class="about">
+        <h2>🌸 О FloweRise</h2>
+        <p style="max-width: 700px; margin: 18px auto;">Мы создаём букеты как искусство. Никаких шаблонов — только уникальные сочетания текстур, сезонных цветов и вашего настроения. FloweRise — это любовь в каждом лепестке.</p>
+        <p>🏆 Топ-5 флористических студий России | 2000+ счастливых клиентов</p>
+    </div>
+</div>
 
-<div class="container" id="contacts"><div class="contacts"><h2>🌺 Связь с нами</h2><p>📞 +7 977 767-48-07</p><p>📧 FloweRise@mail.ru</p><p>📱 Telegram: @itstasii</p></div></div>
+<div class="container" id="contacts">
+    <div class="contacts">
+        <h2>🌺 Связь с нами</h2>
+        <p>📞 <strong>+7 977 767-48-07</strong></p>
+        <p>📧 <strong>FloweRise@mail.ru</strong></p>
+        <p>📱 Telegram: <strong>@itstasii</strong></p>
+        <p style="margin-top: 20px;">💬 Пишите в любое время — мы online 10:00–21:00</p>
+    </div>
+</div>
 
-<footer><p>FloweRise — авторская флористика. 2026</p></footer>
+<footer>
+    <p>FloweRise — авторская флористика. 2026</p>
+    <p style="font-size: 13px; margin-top: 6px;">Сайт создан в учебных целях. Ваши эмоции — наш приоритет.</p>
+</footer>
 
-<div id="cartModal" class="modal"><div class="modal-content"><span class="close-modal" id="closeModal">&times;</span><h3>💐 Корзина</h3><ul id="cartList"></ul><button id="orderButton" class="order-btn">Оформить заказ</button></div></div>
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="closeModal">&times;</span>
+        <h3>💐 Ваша корзина</h3>
+        <ul id="cartList" class="cart-items"></ul>
+        <button id="orderButton" class="order-btn">Оформить заказ</button>
+    </div>
+</div>
 
 <script>
+    // 9 авторских букетов
     const bouquetCatalog = [
-        { id: 1, name: "«Любит — не любит»", price: 5350, desc: "Розы, ромашка садовая, туевик (хвойная зелень)", img: "images/букеты/photo_2026-05-09_20-59-50.jpg" },
-        { id: 2, name: "«Одуванчиковое лето»", price: 4780, desc: "Хризантемы, розы, гипсофила", img: "images/букеты/photo_2026-05-09_20-59-56.jpg" },
-        { id: 3, name: "«Космическое созвездие»", price: 5690, desc: "Бордовые розы, космические орхидеи", img: "images/букеты/photo_2026-05-09_20-59-59.jpg" },
-        { id: 4, name: "«Нежная пудра»", price: 6200, desc: "Кустовые розы, хризантемы, гортензия, эвкалипт", img: "images/букеты/photo_2026-05-09_21-06-54.jpg" },
-        { id: 5, name: "«Малиновый зефир»", price: 5100, desc: "Кустовые розы, кустовая хризантема, зелень", img: "images/букеты/photo_2026-05-09_21-00-05.jpg" },
-        { id: 6, name: "«Сиреневый сад»", price: 5900, desc: "Кустовые хризантемы, гортензия", img: "images/букеты/photo_2026-05-09_20-59-40.jpg" },
-        { id: 7, name: "«Цветочная поляна»", price: 6450, desc: "Розы, хризантемы, гипсофила, эвкалипт", img: "images/букеты/photo_2026-05-09_21-08-23.jpg" },
-        { id: 8, name: "«Сияние вселенной»", price: 5800, desc: "Орхидеи дендробиум, гипсофила", img: "images/букеты/photo_2026-05-09_20-59-46.jpg" },
-        { id: 9, name: "«Персиковый закат»", price: 6300, desc: "Пионовидные розы, маттиола, гвоздика, гиперикум", img: "images/букеты/photo_2026-05-09_18-35-42.jpg" }
+        {
+            id: 1,
+            name: "«Любит-не любит»",
+            price: 5350,
+            desc: "Розы, ромашка садовая,туевик (хвойная зелень)",
+            img: "images/букеты/photo_2026-05-09_20-59-50.jpg"
+        },
+        {
+            id: 2,
+            name: "«Одуванчиковое лето»",
+            price: 4780,
+            desc: "Хризантемы, розы, гипсофила",
+            img: "images/букеты/photo_2026-05-09_20-59-56.jpg"
+        },
+        {
+            id: 3,
+            name: "«Космическое созвездие»",
+            price: 5690,
+            desc: "Бордовые розы, космоческие орхидеи",
+            img: "images/букеты/photo_2026-05-09_20-59-59.jpg"
+        },
+        {
+            id: 4,
+            name: "«Нежная пудра»",
+            price: 6200,
+            desc: "Кустовые розы, хризантемы, гортензия, эвкалипт",
+            img: "images/букеты/photo_2026-05-09_21-06-54.jpg"
+        },
+        {
+            id: 5,
+            name: "«Малиновый зефир»",
+            price: 5100,
+            desc: "Кустовые розы, кустовая хризантема, зелень",
+            img: "images/букеты/photo_2026-05-09_21-00-05.jpg"
+        },
+        {
+            id: 6,
+            name: "«Сиреневый сад»",
+            price: 5900,
+            desc: "Кустовые хризантемы, гортензия",
+            img: "images/букеты/photo_2026-05-09_21-07-18.jpg"
+        },
+        {
+            id: 7,
+            name: "«Цветочная поляна»",
+            price: 6450,
+            desc: "Розы, хризантемы, гипсофила, эвкалипт",
+            img: "images/букеты/photo_2026-05-09_21-08-23.jpg"
+        },
+        {
+            id: 8,
+            name: "«Сияние вселенной",
+            price: 5800,
+            desc: "Орхидеи дендробиум, гипсофила",
+            img: "images/букеты/photo_2026-05-09_20-59-46.jpg"
+        },
+        {
+            id: 9,
+            name: "«Персиковый закат»",
+            price: 6300,
+            desc: "Пионовидные розы, маттиола, сортовая гвоздика, гиперикум",
+            img: "images/букеты/photo_2026-05-09_18-35-42.jpg"
+        }
     ];
+
     let cart = {};
+
     function renderCatalog() {
         const grid = document.getElementById('flowersGrid');
         if (!grid) return;
@@ -74,45 +387,93 @@
         bouquetCatalog.forEach(b => {
             const card = document.createElement('div');
             card.className = 'card';
-            card.innerHTML = `<div class="card-img" style="background-image: url('${b.img}');"></div><div class="card-content"><h3>${b.name}</h3><div class="price">${b.price} ₽</div><div class="desc">${b.desc}</div><button class="add-to-cart" data-id="${b.id}" data-name="${b.name}" data-price="${b.price}">В корзину</button></div>`;
+            card.innerHTML = `
+                <div class="card-img" style="background-image: url('${b.img}');"></div>
+                <div class="card-content">
+                    <h3>${b.name}</h3>
+                    <div class="price">${b.price} ₽</div>
+                    <div class="desc">${b.desc}</div>
+                    <button class="add-to-cart" data-id="${b.id}" data-name="${b.name}" data-price="${b.price}">В корзину</button>
+                </div>
+            `;
             grid.appendChild(card);
         });
-        document.querySelectorAll('.add-to-cart').forEach(btn => btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.id), btn.dataset.name, parseInt(btn.dataset.price))));
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                const name = btn.dataset.name;
+                const price = parseInt(btn.dataset.price);
+                addToCart(id, name, price);
+            });
+        });
     }
+
     function addToCart(id, name, price) {
         if (!cart[id]) cart[id] = { quantity: 1, name, price };
         else cart[id].quantity++;
         updateCartUI();
+        // Без уведомлений — тихое добавление
     }
+
     function updateCartUI() {
-        const total = Object.values(cart).reduce((s,i) => s + i.quantity, 0);
+        const total = Object.values(cart).reduce((sum, i) => sum + i.quantity, 0);
         document.getElementById('cartCount').innerText = total;
+        renderCartModal();
+    }
+
+    function renderCartModal() {
         const cartList = document.getElementById('cartList');
         if (!cartList) return;
-        if (Object.keys(cart).length === 0) cartList.innerHTML = '<li>🌸 Корзина пуста</li>';
-        else {
-            let html = '';
-            for (let [id, item] of Object.entries(cart)) html += `<li>${item.name} × ${item.quantity} — ${item.price * item.quantity} ₽</li>`;
-            cartList.innerHTML = html;
+        if (Object.keys(cart).length === 0) {
+            cartList.innerHTML = '<li>🌸 Корзина пуста, выберите букет</li>';
+            return;
         }
+        let html = '';
+        for (let [id, item] of Object.entries(cart)) {
+            html += `<li>${item.name} × ${item.quantity} — ${item.price * item.quantity} ₽</li>`;
+        }
+        cartList.innerHTML = html;
     }
+
     function makeOrder() {
-        if (Object.keys(cart).length === 0) { alert('🌸 Корзина пуста'); return; }
-        alert('💖 Спасибо за заказ! Свяжемся с вами 💖');
-        cart = {}; updateCartUI(); document.getElementById('cartModal').style.display = 'none';
+        if (Object.keys(cart).length === 0) {
+            alert('🌸 Корзина пуста. Добавьте хотя бы один букет');
+            return;
+        }
+        alert(`💖 Спасибо за заказ! Наш флорист свяжется с вами через Telegram @itstasii или по телефону +7 977 767-48-07 💖`);
+        cart = {};
+        updateCartUI();
+        document.getElementById('cartModal').style.display = 'none';
     }
+
     function initModal() {
         const modal = document.getElementById('cartModal');
-        document.getElementById('cartButton').onclick = () => { updateCartUI(); modal.style.display = 'flex'; };
-        document.getElementById('closeModal').onclick = () => modal.style.display = 'none';
-        document.getElementById('orderButton').onclick = makeOrder;
+        const cartBtn = document.getElementById('cartButton');
+        const close = document.getElementById('closeModal');
+        const orderBtn = document.getElementById('orderButton');
+
+        cartBtn.onclick = () => { renderCartModal(); modal.style.display = 'flex'; };
+        close.onclick = () => modal.style.display = 'none';
+        orderBtn.onclick = makeOrder;
         window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; };
     }
-    renderCatalog(); initModal(); updateCartUI();
-    document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId && targetId !== '#') { const target = document.querySelector(targetId); if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); } }
-    }));
+
+    renderCatalog();
+    initModal();
+    updateCartUI();
+
+    document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId && targetId !== '#') {
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>
