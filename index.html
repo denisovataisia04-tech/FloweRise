@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -108,12 +110,15 @@
         }
 
         .card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-            transition: 0.3s ease;
-        }
+    background: white;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+}
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 40px rgba(0,0,0,0.12);
@@ -127,8 +132,12 @@
         }
 
         .card-content {
-            padding: 22px;
-        }
+    padding: 22px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
         .card h3 {
             font-size: 24px;
             color: #563729;
@@ -156,6 +165,8 @@
             border-radius: 40px;
             cursor: pointer;
             transition: 0.2s;
+            bottom:0px;
+            margin-top: auto;
         }
         button.add-to-cart:hover {
             background: #a15437;
